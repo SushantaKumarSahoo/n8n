@@ -41,7 +41,7 @@ export default function LogsPanel({ jobType }) {
   }, [jobType]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [logs]);
 
   const JobIcon = jobIcons[jobType] || Terminal;
