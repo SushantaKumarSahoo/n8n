@@ -22,7 +22,7 @@ export default function LogsPanel({ jobType }) {
   const [logs, setLogs] = useState([]);
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
-  const bottomRef = useRef(null);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const fetch = async () => {
@@ -41,7 +41,9 @@ export default function LogsPanel({ jobType }) {
   }, [jobType]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [logs]);
 
   const JobIcon = jobIcons[jobType] || Terminal;
@@ -70,7 +72,7 @@ export default function LogsPanel({ jobType }) {
             exit={{ height: 0 }}
             className="overflow-hidden"
           >
-            <div className="max-h-64 overflow-y-auto p-3 space-y-1 font-mono text-xs">
+            <div ref={scrollRef} className="max-h-64 overflow-y-auto p-3 space-y-1 font-mono text-xs">
               {loading ? (
                 <div className="flex items-center gap-2 text-slate-500 py-2">
                   <Loader2 className="w-3 h-3 animate-spin" />
@@ -95,7 +97,6 @@ export default function LogsPanel({ jobType }) {
                   );
                 })
               )}
-              <div ref={bottomRef} />
             </div>
           </motion.div>
         )}
