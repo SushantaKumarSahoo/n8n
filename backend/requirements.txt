@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+python-multipart
+apify-client
+requests
+beautifulsoup4
+google-generativeai
+python-dotenv
+pandas
+supabase
+stripe
